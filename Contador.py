@@ -1,8 +1,13 @@
+from configparser import ConfigParser
 import os
 
-diretorio = 'D:\Repositorio\Python\Contador\Arquivos'
-codigos = ['200', '400', '401'] #Códigos de evento
-metodos = ['Registrar', 'Alterar'] #Métodos
+cfg = ConfigParser()
+cfg.read_file(open(os.path.join(os.path.dirname(__file__),"config.ini")))
+
+#Adquire parametros do arquivo config
+diretorio = cfg.get('DEFAULT','DIRETORIO')
+codigos = (cfg.get('DEFAULT','CODIGOS')).split(',')
+metodos = (cfg.get('DEFAULT','METODOS')).split(',')
 
 def coletaArquivo():
     lista = []
@@ -15,7 +20,7 @@ def coletaArquivo():
     finally:
         return lista
 
-def buscaMetodo(arquivos):
+def buscaMetodo(arquivos): #Busca por métodos e códigos
     for arquivo in arquivos:
         print('Nome do arquivo: '+os.path.basename(arquivo)) #Imprime o nome do arquivo
         for palavra in metodos:
