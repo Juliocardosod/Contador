@@ -2,10 +2,11 @@ from ast import Global
 from configparser import ConfigParser
 import os
 import time
+from turtle import color
 from xmlrpc.client import DateTime
 import xlsxwriter
 
-versão = 'V1.00'
+versão = 'V1.01'
 
 cfg = ConfigParser()
 cfg.read_file(open(os.path.join(os.path.dirname(__file__),"config.ini")))
@@ -125,8 +126,11 @@ def buscaMetodo(): #Busca por métodos e códigos
         row = 2 #Contador de inhas da planilha
 
         sheet = workbook.add_worksheet(dir)
+
+        cf = workbook.add_format({'bg_color': '#FFC7CE'})
+
         #CABEÇALHO
-        sheet.write(f'A1', 'Data')
+        sheet.write(f'A1', 'Data', cf)
         sheet.write(f'B1', 'Método')
         sheet.write(f'C1', 'Ok Cód 200')
         sheet.write(f'E1', 'Erro Cód 400')
